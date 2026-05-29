@@ -30,14 +30,14 @@
 ## 📥 下载安装
 
 ### 方式一：便携版（推荐）
-1. 下载最新版本 [Releases](https://github.com/yourusername/deskschedule/releases)
+1. 下载最新版本 [Releases](https://github.com/zhouzhiyou/DeskSchedule/release)
 2. 解压到任意目录
 3. 双击运行 `DeskSchedule.exe`
 
 ### 方式二：从源码编译
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/deskschedule.git
+git clone https://github.com/zhouzhiyou/DeskSchedule.git
 cd deskschedule
 
 # 编译运行
@@ -126,7 +126,7 @@ DeskSchedule/
 
 ## 📧 联系方式
 
-- 问题反馈: [GitHub Issues](https://github.com/yourusername/deskschedule/issues)
+- 问题反馈: [GitHub Issues](https://github.com/zhouzhiyou/DeskSchedule/issues)
 
 ---
 
