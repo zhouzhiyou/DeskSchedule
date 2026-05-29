@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskSchedule 桌面日程管理工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .version {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .header .subtitle {
+            margin-top: 15px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 18px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
+        }
+
+        .download-info {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .download-info span {
+            margin: 0 10px;
+        }
+
+        .password-box {
+            display: inline-block;
+            background: #fff3e0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #ffcc80;
+        }
+
+        .password-box strong {
+            color: #e65100;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2196F3;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .requirements {
+            background: #e3f2fd;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .requirements ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .requirements li {
+            margin: 8px 0;
+            color: #1565c0;
+        }
+
+        .usage {
+            background: #fff8e1;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .usage ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .usage li {
+            margin: 10px 0;
+            color: #f57c00;
+        }
+
+        .screenshot-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .screenshot {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin: 10px 0;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #64b5f6;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .priority-demo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .priority-tag {
+            padding: 5px 12px;
+            border-radius: 15px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .priority-low { background: #4CAF50; }
+        .priority-normal { background: #2196F3; }
+        .priority-high { background: #FF9800; }
+        .priority-urgent { background: #F44336; }
+
+        .changelog {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .changelog ul {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .changelog li {
+            color: #2e7d32;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8em; }
+            .content { padding: 20px; }
+            .download-btn { padding: 15px 35px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 DeskSchedule</h1>
+            <span class="version">v1.1.0</span>
+            <p class="subtitle">轻量级桌面日程管理工具</p>
+        </div>
+
+        <div class="content">
+            <!-- 下载区域 -->
+            <div class="download-section">
+                <a href="https://wwx.lanzoui.com/xxxxxxxx" class="download-btn" target="_blank">
+                    ⬇ 立即下载
+                </a>
+                <div class="download-info">
+                    <span>📦 文件大小：66MB</span>
+                    <span>🖥 系统要求：Windows 10/11</span>
+                    <span>📅 更新日期：2025年5月28日</span>
+                </div>
+                <div class="password-box">
+                    解压密码：<strong>desk2025</strong>
+                </div>
+            </div>
+
+            <!-- 更新日志 -->
+            <h2>🆕 更新日志 (v1.1.0)</h2>
+            <div class="changelog">
+                <ul>
+                    <li>✨ 新增首次使用引导功能</li>
+                    <li>✨ 新增日程优先级管理（低/普通/高/紧急）</li>
+                    <li>✨ 新增日程分类筛选（全部/待完成/已完成）</li>
+                    <li>✨ 新增按日期分组显示日程</li>
+                    <li>✨ 已完成日程添加删除线样式</li>
+                    <li>🔧 优化提醒弹窗样式和动画效果</li>
+                    <li>🔧 修复复选框可切换完成状态</li>
+                    <li>🔧 日程按优先级排序显示</li>
+                </ul>
+            </div>
+
+            <!-- 功能特性 -->
+            <h2>✨ 功能特性</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <div class="feature-title">自动隐藏</div>
+                    <div class="feature-desc">空闲后自动隐藏到系统托盘，不占用桌面空间，需要时一键唤出。</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🖱️</div>
+                    <div class="feature-title">鼠标触发</div>
+                    <div class="feature-desc">将鼠标移到屏幕左上或右上角落，窗口自动滑出显示。</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-title">智能提醒</div>
+                    <div class="feature-desc">支持弹窗提醒和声音提醒，自定义提醒模板和提示音。</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">优先级管理</div>
+                    <div class="feature-desc">
+                        <div class="priority-demo">
+                            <span class="priority-tag priority-low">低</span>
+                            <span class="priority-tag priority-normal">普通</span>
+                            <span class="priority-tag priority-high">高</span>
+                            <span class="priority-tag priority-urgent">紧急</span>
+                        </div>
+                        四级优先级，日程按优先级排序显示。
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-title">日程分类</div>
+                    <div class="feature-desc">按日期分组显示，支持全部/待完成/已完成三种筛选视图。</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">透明度调节</div>
+                    <div class="feature-desc">窗口透明度可调节10%-100%，打造个性化的桌面体验。</div>
+                </div>
+            </div>
+
+            <!-- 系统要求 -->
+            <h2>💻 系统要求</h2>
+            <div class="requirements">
+                <ul>
+                    <li><strong>操作系统：</strong>Windows 10 (1809+) 或 Windows 11</li>
+                    <li><strong>架构：</strong>64位 (x64)</li>
+                    <li><strong>运行时：</strong>无需安装 .NET（已内置）</li>
+                    <li><strong>磁盘空间：</strong>约 200MB</li>
+                </ul>
+            </div>
+
+            <!-- 使用方法 -->
+            <h2>📖 使用方法</h2>
+            <div class="usage">
+                <ol>
+                    <li>下载 ZIP 压缩包</li>
+                    <li>解压到任意目录（如桌面或D盘）</li>
+                    <li>双击运行 <strong>DeskSchedule.exe</strong></li>
+                    <li>首次运行会显示功能引导</li>
+                    <li>点击「+ 添加日程」开始使用</li>
+                </ol>
+            </div>
+
+            <!-- 截图预览 -->
+            <h2>📸 软件截图</h2>
+            <div class="screenshot-section">
+                <img src="screenshot-main.png" alt="主界面" class="screenshot">
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 DeskSchedule. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/yourusername/deskschedule" target="_blank">GitHub</a> |
+                <a href="mailto:your@email.com">反馈建议</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

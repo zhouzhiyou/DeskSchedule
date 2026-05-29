@@ -47,6 +47,15 @@ bld/
 *.svclog
 *.scc
 
+# Allow publish folder files
+!publish/**/*.dll
+!publish/**/*.exe
+!publish/**/*.pdb
+
+# But ignore large release files (use GitHub Releases instead)
+publish/*.zip
+publish/DeskSchedule-*/
+
 # NuGet Packages
 *.nupkg
 *.snupkg
@@ -56,9 +65,12 @@ project.fragment.lock.json
 artifacts/
 
 # .NET Core
-publish/
 *.pubxml
 *.publishsettings
+
+# Allow publish folder (releases)
+!publish/
+!publish/**/*
 
 # Database
 *.db
